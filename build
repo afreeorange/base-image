@@ -1,0 +1,9 @@
+#!/bin/bash
+
+VERSION=$(cat VERSION)
+
+docker build --tag afreeorange/build:latest .
+docker build --tag afreeorange/build:"$VERSION" .
+
+docker push afreeorange/build:latest
+docker push afreeorange/build:"$VERSION"
