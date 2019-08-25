@@ -11,9 +11,13 @@ RUN apt-get -y install \
     gcc \
     lsb-release \
     make \
+    git \
     jekyll \
+    golang \
     python3.8 \
-    python3-pip
+    python3-pip \
+    trimage \
+    xvfb
 
 # Python
 RUN pip3 install --upgrade \
@@ -27,3 +31,9 @@ RUN apt-get install -y nodejs
 RUN npm i -g \
     yarn \
     prettier
+
+# Go!
+ENV GOPATH $HOME/go
+ENV PATH $HOME/go/bin:$PATH
+RUN go get -u \
+    github.com/tcnksm/ghr
