@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # For logging into Docker and figuring out the tag to push as
 DEFAULT_USERNAME="afreeorange"
 
