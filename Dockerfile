@@ -16,11 +16,14 @@ RUN apt-get -y install \
     make \
     nodejs \
     python3-pip \
+    python3-venv \
     python3.8 \
     trimage \
     xvfb
 
-# Python
+# Python. Not symlinking causes poetry to barf :/
+# It also does this if python3-venv is not installed.
+RUN ln -s /usr/bin/pip3 /usr/bin/pip
 RUN pip3 install --upgrade \
     awscli \
     requests \
