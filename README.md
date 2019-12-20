@@ -5,6 +5,10 @@ Ubuntu 19.04 LTS-based image I use to build my stuff (primarily in CircleCI.) Us
 
 ---
 
+### FROM:Latest
+
+[A Dockerfile linter](http://fromlatest.io/) of sorts.
+
 ### Running Image Optimization
 
 ```bash

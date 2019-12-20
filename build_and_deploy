@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# For logging into Docker and figuring out the tag to push as
+# For logging into Docker and figuring out the tag to push
 DEFAULT_USERNAME="afreeorange"
 
 if [[ -z "$DOCKER_PASSWORD" ]]; then
