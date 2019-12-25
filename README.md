@@ -8,6 +8,15 @@ Versioning
 
 Done via `git` tags. Used to have a `VERSION` file but... why? [This comment](https://gist.github.com/rponte/fdc0724dd984088606b0#gistcomment-3064455) on a gist is how I extract the version when manually building and deploying. DockerHub itself relies on git tags.
 
+### DockerHub Tagging
+
+Under "Build Configurations"
+
+| Source Type |               Source               | Docker Tag |
+|-------------|------------------------------------|------------|
+| Branch      | master                             | latest     |
+| Tag         | `/^([0-9]+)\.([0-9]+)\.([0-9]+)$/` | `{\1}`     |
+
 Miscellaneous Notes
 -------------------
 
