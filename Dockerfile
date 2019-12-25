@@ -27,7 +27,6 @@ RUN apt-get -y update && \
         python3-venv \
         python3.8 \
         trimage \
-        yarn \
         xvfb \
     && \
     # Clean up
@@ -44,6 +43,7 @@ RUN ln -s /usr/bin/pip3 /usr/bin/pip && \
 
 # Node
 RUN npm i -g \
+        yarn \
         prettier \
         eslint
 
