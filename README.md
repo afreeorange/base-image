@@ -14,10 +14,10 @@ So don't forget to `git push origin --tags` 🤗
 
 Under "Build Configurations"
 
-| Source Type |               Source               | Docker Tag |
-|-------------|------------------------------------|------------|
-| Branch      | master                             | latest     |
-| Tag         | `/^([0-9]+)\.([0-9]+)\.([0-9]+)$/` | `{\1}`     |
+| Source Type |               Source               |    Docker Tag    |
+|-------------|------------------------------------|------------------|
+| Branch      | master                             | latest           |
+| Tag         | `/^([0-9]+)\.([0-9]+)\.([0-9]+)$/` | `{\1}.{\2}.{\3}` |
 
 Miscellaneous Notes
 -------------------
