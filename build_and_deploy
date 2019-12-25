@@ -12,10 +12,10 @@ if [[ -z "$DOCKER_USERNAME" ]]; then
     DOCKER_USERNAME="$DEFAULT_USERNAME"
 fi
 
-VERSION=$(cat VERSION)
+VERSION=$(git tag --sort=committerdate | grep -E '^[0-9]' | tail -1)
 
 # We should be ready!
-echo "Attempting to publish v$VERSION to DockerHub as $DOCKER_USERNAME ..."
+echo "Attempting to publish v${VERSION} to DockerHub as ${DOCKER_USERNAME} ..."
 
 # Log in
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin

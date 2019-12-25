@@ -3,7 +3,13 @@ Simple Build Image
 
 Ubuntu 19.04 LTS-based image I use to build my stuff (primarily in CircleCI.) Usually built with [DockerHub's Automated Builds](https://docs.docker.com/docker-hub/builds/) but has a script to build and push manually in case I get impatient 😄
 
----
+Versioning
+----------
+
+Done via `git` tags. Used to have a `VERSION` file but... why? [This comment](https://gist.github.com/rponte/fdc0724dd984088606b0#gistcomment-3064455) on a gist is how I extract the version when manually building and deploying. DockerHub itself relies on git tags.
+
+Miscellaneous Notes
+-------------------
 
 ### FROM:Latest
 
