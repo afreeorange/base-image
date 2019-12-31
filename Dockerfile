@@ -43,9 +43,10 @@ RUN ln -s /usr/bin/pip3 /usr/bin/pip && \
 
 # Node
 RUN npm i -g \
-        yarn \
+        eslint \
+        inline-source-cli \
         prettier \
-        eslint
+        yarn
 
 # Go!
 ENV GOPATH $HOME/go
