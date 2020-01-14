@@ -44,6 +44,7 @@ RUN ln -s /usr/bin/pip3 /usr/bin/pip && \
 # Node
 RUN npm i -g \
         yarn \
+        parcel-bundler \
         prettier \
         eslint
 
@@ -52,3 +53,4 @@ ENV GOPATH $HOME/go
 ENV PATH $HOME/go/bin:$PATH
 RUN go get -u \
         github.com/tcnksm/ghr
+
