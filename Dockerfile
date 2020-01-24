@@ -20,6 +20,7 @@ RUN apt-get -y update && \
         curl \
         git \
         golang \
+        hugo \
         jekyll \
         make \
         nodejs \
