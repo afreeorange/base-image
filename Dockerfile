@@ -1,4 +1,4 @@
-FROM ubuntu:19.04
+FROM ubuntu:19.10
 
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE true
 
@@ -20,7 +20,6 @@ RUN apt-get -y update && \
         curl \
         git \
         golang \
-        jekyll \
         make \
         nodejs \
         python3-pip \
@@ -41,12 +40,13 @@ RUN ln -s /usr/bin/pip3 /usr/bin/pip && \
         black \
         poetry
 
-# Node
+# Node. This adds "1536 packages from 745 contributors".
 RUN npm i -g \
         eslint \
         inline-source-cli \
         parcel-bundler \
         prettier \
+        @11ty/eleventy \
         yarn
 
 # Go!

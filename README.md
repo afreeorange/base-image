@@ -1,7 +1,7 @@
 Simple Build Image
 ==================
 
-Ubuntu 19.04 LTS-based image I use to build my stuff (primarily in CircleCI.) Usually built with [DockerHub's Automated Builds](https://docs.docker.com/docker-hub/builds/) but has a script to build and push manually in case I get impatient 😄
+Ubuntu 19.10-based image I use to build my stuff (primarily in CircleCI.) Usually built with [DockerHub's Automated Builds](https://docs.docker.com/docker-hub/builds/) but has a script to build and push manually in case I get impatient 😄
 
 Versioning
 ----------
@@ -35,7 +35,7 @@ Miscellaneous Notes
 
 ### Alpine Image Setup (Incomplete; no `advpng` to optimize images)
 
-Was about 30% smaller than the Ubuntu image.
+Was about 30% smaller than the Ubuntu image. Get things done before thinking about these things 💖
 
 ```
 FROM alpine:3.10.2
