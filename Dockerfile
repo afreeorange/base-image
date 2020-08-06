@@ -7,7 +7,6 @@ RUN apt-get -y update && \
     apt-get -y install \
         curl \
         gnupg \
-        lsb-release \
     && \
     # Add Node and Yarn PPAs
     curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
