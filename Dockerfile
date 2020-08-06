@@ -43,12 +43,13 @@ RUN ln -s /usr/bin/pip3 /usr/bin/pip && \
         black \
         poetry
 
-# Node
+# Node. This adds "1536 packages from 745 contributors".
 RUN npm i -g \
         eslint \
         inline-source-cli \
         parcel-bundler \
         prettier \
+        @11ty/eleventy \
         yarn
 
 # Go!
