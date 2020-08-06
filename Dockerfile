@@ -1,4 +1,4 @@
-FROM ubuntu:19.04
+FROM ubuntu:latest
 
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE true
 
@@ -28,6 +28,7 @@ RUN apt-get -y update && \
         python3-venv \
         python3.8 \
         trimage \
+        wget \
         xvfb \
     && \
     # Clean up
