@@ -3,10 +3,12 @@ FROM ubuntu:latest
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE true
 
 # Initial setup. Node is a fucking pain.
-RUN apt-get -y update && \
+RUN DEBIAN_FRONTEND="noninteractive" \
+    apt-get -y update && \
     apt-get -y install \
         curl \
         gnupg \
+        tzdata \
     && \
     # Add Node and Yarn PPAs
     curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
@@ -56,4 +58,3 @@ ENV GOPATH $HOME/go
 ENV PATH $HOME/go/bin:$PATH
 RUN go get -u \
         github.com/tcnksm/ghr
-
