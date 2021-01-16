@@ -19,7 +19,9 @@ RUN DEBIAN_FRONTEND="noninteractive" \
     apt-get -y install \
         ca-certificates \
         curl \
+        ffmpeg \
         git \
+        imagemagick \
         golang \
         hugo \
         jekyll \
