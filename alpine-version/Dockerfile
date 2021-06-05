@@ -19,8 +19,6 @@ RUN apk add \
 
 ENV GOPATH $HOME/go
 ENV PATH $HOME/go/bin:$PATH
-RUN go get \
-      github.com/tcnksm/ghr
 
 RUN npm i -g \
       @11ty/eleventy \

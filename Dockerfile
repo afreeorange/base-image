@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:hirsute
 
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE true
 
@@ -11,7 +11,7 @@ RUN DEBIAN_FRONTEND="noninteractive" \
         tzdata \
     && \
     # Add Node and Yarn PPAs
-    curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
+    curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
     curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
     && \
@@ -24,7 +24,6 @@ RUN DEBIAN_FRONTEND="noninteractive" \
         imagemagick \
         golang \
         hugo \
-        jekyll \
         make \
         nodejs \
         python3-pip \
@@ -37,8 +36,8 @@ RUN DEBIAN_FRONTEND="noninteractive" \
     # Clean up
     rm -rf /var/lib/apt/lists/*
 
-# Python. Not symlinking causes poetry to barf :/
-# It also does this if python3-venv is not installed.
+# Python. Not symlinking causes poetry to barf :/ It also does this if
+# python3-venv is not installed.
 RUN ln -s /usr/bin/pip3 /usr/bin/pip && \
     pip3 install --upgrade \
         awscli \
@@ -46,7 +45,7 @@ RUN ln -s /usr/bin/pip3 /usr/bin/pip && \
         black \
         poetry
 
-# Node. This adds "1536 packages from 745 contributors".
+# Node
 RUN npm i -g \
         eslint \
         inline-source-cli \
@@ -58,5 +57,3 @@ RUN npm i -g \
 # Go!
 ENV GOPATH $HOME/go
 ENV PATH $HOME/go/bin:$PATH
-RUN go get -u \
-        github.com/tcnksm/ghr

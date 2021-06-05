@@ -21,10 +21,10 @@ echo "Attempting to publish v${VERSION} to DockerHub as ${DOCKER_USERNAME} ..."
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 # Tag the image
-docker build --tag afreeorange/build:latest .
-docker build --tag afreeorange/build:"$VERSION" .
+docker build \
+    --tag afreeorange/build:latest \
+    --tag afreeorange/build:"$VERSION" .
 
 # Push to DockerHub!
 docker push afreeorange/build:latest
 docker push afreeorange/build:"$VERSION"
-
