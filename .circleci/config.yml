@@ -6,34 +6,30 @@ jobs:
       - image: docker:20
     steps:
       - checkout
+      - setup_remote_docker
+      - restore_cache:
+          keys:
+            - v1-{{ .Branch }}
       - run:
+          name: Load Docker image layer cache
           command: |
-            pwd
-            ls -l
-      # - setup_remote_docker
-      # - restore_cache:
-      #     keys:
-      #       - v1-{{ .Branch }}
-      # - run:
-      #     name: Load Docker image layer cache
-      #     command: |
-      #       set +eo pipefail
-      #       docker load -i /caches/app.tar || true
-      # - run:
-      #     name: Build application Docker image
-      #     command: ~/projects/.scripts/build
-      # - run:
-      #     name: Save Docker image layer cache
-      #     command: |
-      #       mkdir -p /caches
-      #       docker save -o /caches/app.tar afreeorange/bock:latest
-      # - save_cache:
-      #     key: v1-{{ .Branch }}-{{ epoch }}
-      #     paths:
-      #       - /caches/app.tar
-      # - deploy:
-      #     name: Push Docker image
-      #     command: ~/projects/.scripts/deploy
+            set +eo pipefail
+            docker load -i /caches/app.tar || true
+      - run:
+          name: Build application Docker image
+          command: ~/project/.scripts/build
+      - run:
+          name: Save Docker image layer cache
+          command: |
+            mkdir -p /caches
+            docker save -o /caches/app.tar afreeorange/bock:latest
+      - save_cache:
+          key: v1-{{ .Branch }}-{{ epoch }}
+          paths:
+            - /caches/app.tar
+      - deploy:
+          name: Push Docker image
+          command: ~/project/.scripts/deploy
 
 workflows:
   version: 2
