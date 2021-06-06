@@ -1,0 +1,39 @@
+version: 2.1
+
+jobs:
+  release-to-dockerhub:
+    docker:
+      - image: docker:20
+    steps:
+      - attach_workspace:
+          at: .
+      - setup_remote_docker
+      - restore_cache:
+          keys:
+            - v1-{{ .Branch }}
+      - run:
+          name: Load Docker image layer cache
+          command: |
+            set +eo pipefail
+            docker load -i /caches/app.tar || true
+      - run:
+          name: Build application Docker image
+          command: .scripts/build
+      - run:
+          name: Save Docker image layer cache
+          command: |
+            mkdir -p /caches
+            docker save -o /caches/app.tar afreeorange/bock:latest
+      - save_cache:
+          key: v1-{{ .Branch }}-{{ epoch }}
+          paths:
+            - /caches/app.tar
+      - deploy:
+          name: Push Docker image
+          command: .scripts/deploy
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - release-to-dockerhub

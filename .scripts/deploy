@@ -1,0 +1,24 @@
+#!/bin/bash
+
+VERSION=$(git tag --sort=committerdate | grep -E '^[0-9]' | tail -1)
+DEFAULT_USERNAME="afreeorange"
+
+if [[ -z "$DOCKERHUB_PASSWORD" ]]; then
+    echo "❗️ You didn't set the DOCKERHUB_PASSWORD env var!"
+    exit 1
+fi
+
+if [[ -z "$DOCKERHUB_USERNAME" ]]; then
+    DOCKERHUB_USERNAME="$DEFAULT_USERNAME"
+fi
+
+
+# We should be ready!
+echo "Attempting to publish v${VERSION} to DockerHub as ${DOCKERHUB_USERNAME} ..."
+
+# Log in
+echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+
+# Push to DockerHub!
+docker push afreeorange/build:latest
+docker push afreeorange/build:"$VERSION"

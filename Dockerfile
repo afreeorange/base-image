@@ -1,48 +1,55 @@
-FROM ubuntu:hirsute
+FROM ubuntu:21.04
 
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE true
+ENV DEBIAN_FRONTEND noninteractive
 
-# Initial setup. Node is a fucking pain.
-RUN DEBIAN_FRONTEND="noninteractive" \
-    apt-get -y update && \
-    apt-get -y install \
-        curl \
-        gnupg \
-        tzdata \
-    && \
-    # Add Node and Yarn PPAs
-    curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
-    curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-    && \
-    # Install stuff
-    apt-get -y install \
+# Initial setup. Use a separate layer.
+RUN \
+    apt -y update && \
+    apt -y install \
         ca-certificates \
         curl \
-        ffmpeg \
         git \
+        gnupg \
+        make \
+        python3-pip \
+        python3.10-minimal \
+        tzdata \
+        wget \
+        xvfb
+
+# All the additional stuff
+RUN \
+    #
+    # For Node 🙄
+    curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
+    #
+    # For the Github CLI
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null && \
+    #
+    # Install stuff
+    apt -y update && \
+    apt -y install \        
+        ffmpeg \
+        gh \
         imagemagick \
         golang \
         hugo \
-        make \
         nodejs \
-        python3-pip \
-        python3-venv \
-        python3.8 \
         trimage \
-        wget \
-        xvfb \
     && \
+    # 
     # Clean up
     rm -rf /var/lib/apt/lists/*
 
-# Python. Not symlinking causes poetry to barf :/ It also does this if
-# python3-venv is not installed.
-RUN ln -s /usr/bin/pip3 /usr/bin/pip && \
-    pip3 install --upgrade \
+# Python
+RUN pip install --upgrade \
         awscli \
         requests \
         black \
+        flake8 \
+        isort \
         poetry
 
 # Node
@@ -53,7 +60,3 @@ RUN npm i -g \
         prettier \
         @11ty/eleventy \
         yarn
-
-# Go!
-ENV GOPATH $HOME/go
-ENV PATH $HOME/go/bin:$PATH
