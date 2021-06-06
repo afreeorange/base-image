@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   release-to-dockerhub:
     docker:
-      - image: docker:20
+      - image: docker:20.10
     steps:
       - checkout
       - run:
