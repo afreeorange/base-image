@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run:
           command: |
-            ls -lA
+            ls -lA .scripts/
       # - setup_remote_docker
       # - restore_cache:
       #     keys:
