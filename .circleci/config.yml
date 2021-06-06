@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Installing git
+          name: Installing git (this is an Alpine image)
           command: apk add git
       - setup_remote_docker
       - restore_cache:
@@ -30,7 +30,7 @@ jobs:
           name: Save Docker image layer cache
           command: |
             mkdir -p /caches
-            docker save -o /caches/app.tar afreeorange/bock:latest
+            docker save -o /caches/app.tar afreeorange/build:latest
       - save_cache:
           key: v1-{{ .Branch }}-{{ epoch }}
           paths:
