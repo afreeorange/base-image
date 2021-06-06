@@ -22,7 +22,7 @@ RUN \
 RUN \
     #
     # For Node 🙄
-    curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
+    curl -sL https://deb.nodesource.com/setup_15.x | bash - && \
     #
     # For the Github CLI
     curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg && \
