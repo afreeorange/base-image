@@ -13,7 +13,7 @@ RUN \
         gnupg \
         make \
         python3-pip \
-        python3.10-minimal \
+        python3.9-minimal \
         tzdata \
         wget \
         xvfb
