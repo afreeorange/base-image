@@ -6,33 +6,38 @@ jobs:
       - image: docker:20
     steps:
       - checkout
+      - setup_remote_docker
+      - restore_cache:
+          keys:
+            - v1-{{ .Branch }}
       - run:
+          name: Load Docker image layer cache
           command: |
-            ls -lA .scripts/
-      # - setup_remote_docker
-      # - restore_cache:
-      #     keys:
-      #       - v1-{{ .Branch }}
-      # - run:
-      #     name: Load Docker image layer cache
-      #     command: |
-      #       set +eo pipefail
-      #       docker load -i /caches/app.tar || true
-      # - run:
-      #     name: Build application Docker image
-      #     command: ~/project/.scripts/build
-      # - run:
-      #     name: Save Docker image layer cache
-      #     command: |
-      #       mkdir -p /caches
-      #       docker save -o /caches/app.tar afreeorange/bock:latest
-      # - save_cache:
-      #     key: v1-{{ .Branch }}-{{ epoch }}
-      #     paths:
-      #       - /caches/app.tar
-      # - deploy:
-      #     name: Push Docker image
-      #     command: ~/project/.scripts/deploy
+            set +eo pipefail
+            docker load -i /caches/app.tar || true
+      - run:
+          name: Build application Docker image
+          command: |
+            VERSION=$(git tag --sort=committerdate | grep -E '^[0-9]' | tail -1)
+            echo "Building version $VERSION"
+            docker build \
+                --tag afreeorange/build:latest \
+                --tag afreeorange/build:"$VERSION" .
+      - run:
+          name: Save Docker image layer cache
+          command: |
+            mkdir -p /caches
+            docker save -o /caches/app.tar afreeorange/bock:latest
+      - save_cache:
+          key: v1-{{ .Branch }}-{{ epoch }}
+          paths:
+            - /caches/app.tar
+      - deploy:
+          name: Push Docker image
+          command: |
+            echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            docker push afreeorange/build:latest
+            docker push afreeorange/build:"$VERSION"
 
 workflows:
   version: 2
