@@ -1,4 +1,4 @@
-FROM alpine:3.12.0
+FROM alpine:3.15
 
 RUN apk add \
         --no-cache \
@@ -6,6 +6,7 @@ RUN apk add \
         --allow-untrusted \
       aws-cli \
       black \
+      curl \
       git \
       go \
       nodejs-current \

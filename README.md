@@ -1,4 +1,4 @@
-# My Base Image
+# My Base Image ⛺️
 
 Ubuntu-based image I use to work on and build my stuff. 
 
@@ -8,10 +8,16 @@ Ubuntu-based image I use to work on and build my stuff.
 
 ```bash
 # Build
-.scripts/build
+.scripts/local-build
+
+# View and bump tags
+git tag a.b.c
 
 # Deploy. Set vars first.
-DOCKERHUB_USERNAME="afreeorange" DOCKERHUB_PASSWORD="SECRET" .scripts/deploy
+DOCKERHUB_USERNAME="afreeorange" DOCKERHUB_PASSWORD="SECRET" .scripts/local-deploy
+
+# Push changes to remote
+git push && git push --tags
 ```
 So don't forget to `git push origin master --tags` 🤗 
 
@@ -20,12 +26,6 @@ So don't forget to `git push origin master --tags` 🤗
 ### FROM:Latest
 
 [A Dockerfile linter](http://fromlatest.io/) of sorts.
-
-### Running Image Optimization
-
-```bash
-/usr/bin/xvfb-run -a trimage
-```
 
 ### Alpine Image Setup (Incomplete; no `advpng` to optimize images)
 
