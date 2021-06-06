@@ -6,6 +6,9 @@ jobs:
       - image: docker:20
     steps:
       - checkout
+      - run:
+          name: Installing git
+          command: apk add git
       - setup_remote_docker
       - restore_cache:
           keys:
